@@ -20,22 +20,9 @@ namespace BlazingBlog.Data
 #endif
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Entity<User>()
-                .HasData(
-                    new User
-                    {
-                        Id = 1,
-                        Email = "abhayprince@outlook.com",
-                        FirstName = "Abhay",
-                        LastName = "Prince",
-                        Salt = "dshfksdhfk",
-                        Hash = "dfhkhsdskdfffgfjgfjgkdfhjgkdf/="
-                    }
-                );
-        }
+        // protected override void OnModelCreating(ModelBuilder modelBuilder)
+        // {
+        //     base.OnModelCreating(modelBuilder);
+        // }
     }
 }

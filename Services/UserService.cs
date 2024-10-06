@@ -21,7 +21,7 @@ namespace BlazingBlog.Services
             if (dbUser is null) return null;
             var salt = dbUser.Salt;
             var hashed = dbUser.Hash;
-            if (hashed != HashPassword(model.Password, salt)) return null; // Login Failed
+            if (hashed != model.Password.HashPassword(salt)) return null; // Login Failed
             return new LoggedInUser(dbUser.Id, $"{dbUser.FirstName} {dbUser.LastName}".Trim()); // Login Success
         }
     }

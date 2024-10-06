@@ -52,7 +52,7 @@
                         <td>
                             @(post.ModifiedOn.HasValue 
                                 ? post.ModifiedOn.Value.ToShortDateString()
-                                : post.CreatedOn.ToShortDateString())
+                                : post.CreatedOn!.Value.ToShortDateString())
                         </td>
                         <td>
                             @if (post.IsPublished)

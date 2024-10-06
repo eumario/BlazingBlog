@@ -3,6 +3,8 @@
 
 @inject BlogPostService BlogPostService
 @inject CategoryService CategoryService
+@inject UserService UserService
+@inject NavigationManager NavigationManager
 
 <PageTitle>@heading | BlazingBlog</PageTitle>
 
@@ -63,4 +65,14 @@
             heading = "Latest Posts";
         }
     }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (!await UserService.IsBlogSetup())
+        {
+            NavigationManager.NavigateTo("/admin/setup");
+        }
+        await base.OnInitializedAsync();
+    }
+
 }

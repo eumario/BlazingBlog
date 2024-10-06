@@ -3,6 +3,7 @@
 
 @inject BlogAuthenticationStateProvider BlogAuthStateProvider
 @inject NavigationManager NavigationManager
+@inject UserService UserService
 
 @if (_isProcessing)
 {
@@ -80,5 +81,14 @@
             _isProcessing = false;
             _error = ex.Message;
         }
+    }
+    
+    protected override async Task OnInitializedAsync()
+    {
+        if (!await UserService.IsBlogSetup())
+        {
+            NavigationManager.NavigateTo("/admin/setup");
+        }
+        await base.OnInitializedAsync();
     }
 }

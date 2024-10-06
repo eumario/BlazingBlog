@@ -9,10 +9,10 @@ namespace BlazingBlog.Data.Entities
         public int Id { get; set; }
 
         [Required, MaxLength(100), Unicode(false)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [Required, MaxLength(125), Unicode(false)]
-        public string Slug { get; set; }
+        public string? Slug { get; set; }
 
         public Category Clone() => (Category)this.MemberwiseClone();
     }

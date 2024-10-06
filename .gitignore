@@ -364,3 +364,6 @@ FodyWeavers.xsd
 
 # Database File
 BlazingBlog.db
+
+# Ignore Idea folder
+.idea/

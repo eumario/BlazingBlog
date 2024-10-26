@@ -1,39 +1,39 @@
 ﻿@page "/posts/{slug}"
 
-@inject BlogPostService BlogPostService;
+@inject BlogPostService BlogPostService
 @inject CategoryService CategoryService
 
-<PageTitle>@post.Title | BlazingBlog</PageTitle>
+<PageTitle>@_post.Title | eumario/CasperDragonWolf Blog</PageTitle>
 
 <div class="container">
     <div class="row">
         <div class="col-sm-9">
-            @if (notFound)
+            @if (_notFound)
             {
                 <div class="d-flex justify-content-center flex-column align-items-center" style="min-height: 250px">
                     <h3>Not found</h3>
                     <NavLink href="/" class="btn btn-primary">Click here to see the latest blog posts</NavLink>
                 </div>
             }
-            else if(post?.Id > 0)
+            else if(_post?.Id > 0)
             {
                 var color = Utilities.GetRandomColorClass();
-                var categoryTitle = $"{post.CategoryName} Blog Posts";
-                var categoryPostsLink = $"/c/{post.Category.Slug}/posts";
+                var categoryTitle = $"{_post.CategoryName} Blog Posts";
+                var categoryPostsLink = $"/c/{_post.Category.Slug}/posts";
 
-                <h1 class="fs-1 bg-@color text-white p-5 rounded">@post.Title</h1>
+                <h1 class="fs-1 bg-@color text-white p-5 rounded">@_post.Title</h1>
                 <small>
                     <label>
-                        <NavLink href="@categoryPostsLink" class="text-decoration-none" title="@categoryTitle">@post.CategoryName</NavLink>
+                        <NavLink href="@categoryPostsLink" class="text-decoration-none" title="@categoryTitle">@_post.CategoryName</NavLink>
                     </label>
                     <label>
-                        @post.PublishedOn!.Value.ToShortDateString()
+                        @_post.PublishedOn!.Value.ToShortDateString()
                     </label>
                 </small>
-                <p class="fs-6">@post.Introduction</p>
+                <p class="fs-6">@_post.Introduction</p>
                 <hr />
                 <div class="main-content">
-                    @((MarkupString)post.Content)
+                    @((MarkupString)_post.Content)
                 </div>
             }
             else
@@ -50,10 +50,10 @@
 
 @code {
     [Parameter]
-    public string Slug { get; set; }
+    public string? Slug { get; set; }
 
-    private BlogPost post = new();
-    private bool notFound = false;
+    private BlogPost? _post = new();
+    private bool _notFound = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -62,11 +62,11 @@
             var dbBlog = await BlogPostService.GetPostBySlugAsync(Slug);
             if(dbBlog is null)
             {
-                notFound = true;
+                _notFound = true;
             }
             else
             {
-                post = dbBlog;
+                _post = dbBlog;
             }
         }
     }
